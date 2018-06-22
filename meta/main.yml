@@ -16,6 +16,15 @@ galaxy_info:
   - geospaas
 
 dependencies:
-  - andrewrothstein.miniconda
-  - andrewrothstein.conda-env
+  - role: andrewrothstein.miniconda
+    miniconda_escalate: no
+    miniconda_parent_dir: '{{ django_conda_dir | dirname }}'
+    miniconda_make_sys_default: yes
+
+  - role: andrewrothstein.conda-env
+    conda_env_name: '{{ django_env_name }}'
+    conda_env_environment: conda_env_requirements.yml
+    conda_env_escalate: no
+    conda_env_conda_dir: '{{ django_conda_dir }}'
+
 
