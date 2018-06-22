@@ -16,7 +16,6 @@ galaxy_info:
   - geospaas
 
 dependencies:
-  - src: andrewrothstein.miniconda
-    version: v5.0.0
-  - src: andrewrothstein.conda-env
-    version: v2.0.0
+  - andrewrothstein.miniconda
+  - andrewrothstein.conda-env
+

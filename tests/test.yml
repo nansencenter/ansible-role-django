@@ -1,5 +1,13 @@
 ---
-- hosts: localhost
-  remote_user: root
+- hosts: all
+  vars:
+    project_home:   '/opt'
+    project_name:   'project'
+    env_name: 'py3django'
+    conda_dir: '/opt/anaconda'
+
   roles:
-    - geo-spaas-project
+    - role: andrewrothstein.miniconda
+      miniconda_escalate: no
+      miniconda_parent_dir: '{{ conda_dir | dirname }}'
+      miniconda_make_sys_default: yes
