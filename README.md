@@ -7,7 +7,7 @@ Initialize Django project for GeoSPaaS
 
 Requirements
 ------------
-
+See [meta/main.yml](meta/main.yml)
 
 Role Variables
 --------------
@@ -21,17 +21,19 @@ django_env_name: Name of the anaconda environment
 Dependencies
 ------------
 
-andrewrothstein.miniconda, andrewrothstein.conda-env
+See [meta/main.yml](meta/main.yml)
 
 
 Example Playbook
 ----------------
 
+```yml
     - role: django
       django_project_home: /vagrant
       django_project_name: project
       django_conda_dir: py3django
       django_env_name: /home/vagrant/anaconda
+```
 
 License
 -------
