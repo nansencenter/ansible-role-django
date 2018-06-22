@@ -21,3 +21,6 @@ install:
 
 script:
   - sudo docker exec "$(cat ${container_id})" /opt/anaconda/envs/py3django/bin/python /opt/project/manage.py startapp testapp
+
+notifications:
+    webhooks: https://galaxy.ansible.com/api/v1/notifications/
