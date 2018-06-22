@@ -1,2 +1,23 @@
 ---
-# tasks file for django
+- name: django | create new django project
+  shell: '{{ django_conda_dir }}/envs/{{ django_env_name }}/bin/django-admin startproject {{ django_project_name }}'
+  args:
+    chdir: '{{ django_project_home }}'
+    creates: '{{ django_project_home }}/{{ django_project_name }}'
+
+- name: django | add spatialite library hack
+  lineinfile:
+    dest: '{{ django_project_home }}/{{ django_project_name }}/{{ django_project_name }}/settings.py'
+    line: "SPATIALITE_LIBRARY_PATH = 'mod_spatialite'"
+
+- name: django | replace DB backend
+  replace:
+    dest: '{{ django_project_home }}/{{ django_project_name }}/{{ django_project_name }}/settings.py'
+    regexp: 'django.db.backends.sqlite3'
+    replace: 'django.contrib.gis.db.backends.spatialite'
+
+- name: django | replace DB filename
+  replace:
+    dest: '{{ django_project_home }}/{{ django_project_name }}/{{ django_project_name }}/settings.py'
+    regexp: 'db.sqlite3'
+    replace: 'geodjango.db'

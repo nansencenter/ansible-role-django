@@ -1,2 +1,3 @@
 ---
-# defaults file for django
+django_project_home: '/vagrant'
+django_project_name: 'django_project'
