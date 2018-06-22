@@ -1,8 +1,7 @@
 akorosov.django
 =========
 
-[![Build Status](https://travis-ci.org/nansencenter/ansible-role-django.svg?bra
-nch=master)](https://travis-ci.org/nansencenter/ansible-role-django)
+[![Build Status](https://travis-ci.org/nansencenter/ansible-role-django.svg?branch=master)](https://travis-ci.org/nansencenter/ansible-role-django)
 
 Initialize Django project for GeoSPaaS
 
