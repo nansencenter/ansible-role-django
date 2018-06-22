@@ -28,7 +28,7 @@ Example Playbook
 ----------------
 
 ```yml
-    - role: django
+    - role: nansencenter.django
       django_project_home: /vagrant
       django_project_name: project
       django_conda_dir: py3django
