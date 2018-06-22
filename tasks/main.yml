@@ -5,20 +5,15 @@
     chdir: '{{ django_project_home }}'
     creates: '{{ django_project_home }}/{{ django_project_name }}'
 
-- name: django | add spatialite library hack
-  lineinfile:
-    dest: '{{ django_project_home }}/{{ django_project_name }}/{{ django_project_name }}/settings.py'
-    line: "SPATIALITE_LIBRARY_PATH = 'mod_spatialite'"
-
 - name: django | replace DB backend
   replace:
-    dest: '{{ django_project_home }}/{{ django_project_name }}/{{ django_project_name }}/settings.py'
+    dest: '{{ django_settings }}'
     regexp: 'django.db.backends.sqlite3'
     replace: 'django.contrib.gis.db.backends.spatialite'
 
 - name: django | replace DB filename
   replace:
-    dest: '{{ django_project_home }}/{{ django_project_name }}/{{ django_project_name }}/settings.py'
+    dest: '{{ django_settings }}'
     regexp: 'db.sqlite3'
     replace: 'geodjango.db'
 
@@ -48,19 +43,17 @@
         ]
         SERIALIZATION_MODULES = {"geojson": "django.contrib.gis.serializers.geojson",}
         ALLOWED_HOSTS = ['*']
+        SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
 
 - name: django | add apps to settings.py
   blockinfile:
     dest: '{{ django_settings }}'
     insertafter: "^INSTALLED_APPS*"
-    marker: '# {mark} GEOSPAAS APPS'
+    marker: "# {mark} DJANGO APP {{ item }}"
     block: |
-        'geospaas.vocabularies',
-        'geospaas.catalog',
-        'geospaas.nansat_ingestor',
-        'geospaas.viewer',
-        'django_forms_bootstrap',
-        'leaflet',
+      '{{ item }}',
+  with_items:
+    - "{{ django_apps }}"
 
 - name: django | Import include in urls.py
   blockinfile:
@@ -89,8 +82,10 @@
   lineinfile:
     dest: '{{ django_urls }}'
     insertafter: '^urlpatterns = \[*'
-    line: "path(r'^', include('django.urls')),"
+    line: '{{ item }}'
     state: present
+  with_items:
+    - '{{ django_urlpatterns }}'
 
 - name: django | PIP Django 3rd party apps
   pip:
@@ -98,5 +93,5 @@
     name: '{{ item }}'
   become: True
   with_items:
-    - django-forms-bootstrap
-    - django-leaflet
+    - '{{ django_pip_pkgs }}'
+
