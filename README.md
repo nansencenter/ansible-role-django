@@ -1,38 +1,46 @@
-Role Name
+akorosov.django
 =========
 
-A brief description of the role goes here.
+[![Build Status](https://travis-ci.org/nansencenter/ansible-role-django.svg?bra
+nch=master)](https://travis-ci.org/nansencenter/ansible-role-django)
+
+Initialize Django project for GeoSPaaS
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+django_project_home: Home directory of the Django project
+django_project_name: Name of Django project
+django_conda_dir: Anaconda directory
+django_env_name: Name of the anaconda environment
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+andrewrothstein.miniconda, andrewrothstein.conda-env
+
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+    - role: django
+      django_project_home: /vagrant
+      django_project_name: project
+      django_conda_dir: py3django
+      django_env_name: /home/vagrant/anaconda
 
 License
 -------
 
-BSD
+GPLv3
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Anton Korosov, anton.korosov@nersc.no
+Nansen Environmental and Remote Sensing Center, https://github.com/nansencenter/
