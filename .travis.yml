@@ -9,10 +9,12 @@ services:
   - docker
 
 before_install:
-  - 'sudo docker pull ${distribution}:${version}'
-  - 'sudo docker build --no-cache --rm --file=tests/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible tests'
+  - sudo docker pull ${distribution}:${version}
+  - sudo docker build --no-cache --rm --file=tests/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible tests
 
 script:
   - container_id=$(mktemp)
-  - 'sudo docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${distribution}-${version}:ansible > "${container_id}"'
-  - 'sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook -v /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check'
+  - sudo docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${distribution}-${version}:ansible > "${container_id}"
+  - sudo docker exec "$(cat ${container_id})" ansible-galaxy install andrewrothstein.miniconda andrewrothstein.conda-env
+  - sudo docker exec "$(cat ${container_id})" ansible-playbook -v /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check
+  - sudo docker exec "$(cat ${container_id})" ansible-playbook -v /etc/ansible/roles/role_under_test/tests/test.yml

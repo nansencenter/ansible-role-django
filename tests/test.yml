@@ -11,3 +11,15 @@
       miniconda_escalate: no
       miniconda_parent_dir: '{{ conda_dir | dirname }}'
       miniconda_make_sys_default: yes
+
+    - role: andrewrothstein.conda-env
+      conda_env_name: '{{ env_name }}'
+      conda_env_environment: conda_env_requirements.yml
+      conda_env_escalate: no
+      conda_env_conda_dir: '{{ conda_dir }}'
+
+    - role: role_under_test
+      django_project_home: '{{ project_home }}'
+      django_project_name: '{{ project_name }}'
+      django_conda_dir: '{{ conda_dir }}'
+      django_env_name: '{{ env_name }}'
