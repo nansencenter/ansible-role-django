@@ -18,6 +18,7 @@ galaxy_info:
 
 dependencies:
   - role: andrewrothstein.miniconda
+    version: v5.1.5
     miniconda_escalate: no
     miniconda_parent_dir: '{{ django_conda_dir | dirname }}'
     miniconda_make_sys_default: yes
