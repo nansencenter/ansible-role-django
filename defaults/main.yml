@@ -4,11 +4,16 @@ django_project_name: 'project'
 django_env_name: 'py3django'
 django_conda_dir: '/opt/anaconda'
 
+django_static_root: '{{ django_project_home }}/{{ django_project_name }}/static_root'
+django_media_root:  '{{ django_project_home }}/{{ django_project_name }}/media'
+django_downloads_root:  '{{ django_project_home }}/{{ django_project_name }}/downloads'
+django_products_root:  '{{ django_project_home }}/{{ django_project_name }}/products'
+
 django_dirs:
-  - {name: STATIC_ROOT,     path: '{{ django_project_home }}/{{ django_project_name }}/static_root'}
-  - {name: MEDIA_ROOT,      path: '{{ django_project_home }}/{{ django_project_name }}/media'}
-  - {name: DOWNLOADS_ROOT,  path: '{{ django_project_home }}/{{ django_project_name }}/downloads'}
-  - {name: PRODUCTS_ROOT,   path: '{{ django_project_home }}/{{ django_project_name }}/products'}
+  - {name: STATIC_ROOT,     path: '{{ django_static_root }}'}
+  - {name: MEDIA_ROOT,      path: '{{ django_media_root }}'}
+  - {name: DOWNLOADS_ROOT,  path: '{{ django_downloads_root }}'}
+  - {name: PRODUCTS_ROOT,   path: '{{ django_products_root }}'}
 
 django_settings: "{{ django_project_home }}/{{ django_project_name }}/{{ django_project_name }}/settings.py"
 django_urls: "{{ django_project_home }}/{{ django_project_name }}/{{ django_project_name }}/urls.py"
