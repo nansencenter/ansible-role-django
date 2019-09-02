@@ -1,4 +1,9 @@
 ---
+- name: django | create folder django_project_home
+  file:
+      path: '{{ django_project_home }}'
+      state: directory
+
 - name: django | create new django project
   shell: '{{ django_conda_dir }}/envs/{{ django_env_name }}/bin/django-admin startproject {{ django_project_name }}'
   args:
